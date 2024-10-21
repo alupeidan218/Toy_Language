@@ -1,6 +1,7 @@
 package Model.ADT.Dictionary;
 
-import Model.MyException;
+import Model.Exception.KeyNotFoundException;
+import Model.Exception.MyException;
 
 import java.util.HashMap;
 
@@ -20,7 +21,7 @@ public class MyDictionary<U, V> implements MyIDictionary<U, V> {
     @Override
     public V remove(U key) throws MyException {
         if(!map.containsKey(key))
-            throw new MyException("Key not found");
+            throw new KeyNotFoundException("Key not found");
         return map.remove(key);
     }
     @Override

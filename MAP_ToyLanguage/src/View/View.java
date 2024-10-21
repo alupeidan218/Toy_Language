@@ -9,7 +9,7 @@ import Model.ADT.Stack.*;
 import Model.ADT.List.*;
 import Model.ADT.Dictionary.*;
 import Repository.*;
-import Model.MyException;
+import Model.Exception.MyException;
 
 import java.util.Scanner;
 
@@ -18,7 +18,8 @@ public class View {
     {
         System.out.println("1. Choose a program");
         System.out.println("2. Execute a program (completely)");
-        System.out.println("3. Exit");
+        System.out.println("3. Switch debugging mode (display flag)");
+        System.out.println("4. Exit");
     }
     public static void displayPrograms()
     {
@@ -93,6 +94,9 @@ public class View {
                         cont.allStep();
                         break;
                     case 3:
+                        cont.switchDisplayFlag();
+                        break;
+                    case 4:
                         running = false;
                         break;
                     default:

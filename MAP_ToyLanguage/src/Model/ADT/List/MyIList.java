@@ -1,6 +1,6 @@
 package Model.ADT.List;
 
-import Model.MyException;
+import Model.Exception.MyException;
 
 public interface MyIList<T> {
     void add(T item);

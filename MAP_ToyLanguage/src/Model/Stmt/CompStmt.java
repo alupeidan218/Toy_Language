@@ -1,6 +1,5 @@
 package Model.Stmt;
 
-import Model.MyException;
 import Model.ADT.Stack.MyIStack;
 import Model.PrgState;
 

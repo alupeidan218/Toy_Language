@@ -1,6 +1,6 @@
 package Model.Exp;
 
-import Model.MyException;
+import Model.Exception.MyException;
 import Model.ADT.Dictionary.MyIDictionary;
 import Model.Value.Value;
 

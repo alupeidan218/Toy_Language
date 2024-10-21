@@ -2,8 +2,9 @@ package Model.Stmt;
 
 import Model.ADT.Dictionary.MyIDictionary;
 import Model.ADT.Stack.MyIStack;
+import Model.Exception.TypeException;
 import Model.Exp.Exp;
-import Model.MyException;
+import Model.Exception.MyException;
 import Model.PrgState;
 import Model.Type.BoolType;
 import Model.Value.*;
@@ -28,7 +29,7 @@ public class IfStmt implements IStmt {
             else
                 stk.push(elseS);
         } else {
-            throw new MyException("Conditional expression is not a boolean");
+            throw new TypeException("Conditional expression is not a boolean");
         }
         return state;
     }

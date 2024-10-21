@@ -1,7 +1,8 @@
 package Model.Stmt;
 
 import Model.ADT.Dictionary.MyIDictionary;
-import Model.MyException;
+import Model.Exception.MyException;
+import Model.Exception.TypeMismatchException;
 import Model.PrgState;
 import Model.Exp.*;
 import Model.Value.*;
@@ -25,7 +26,7 @@ public class AssignStmt implements IStmt {
             {
                 symTbl.put(id, val);
             }else{
-                throw new MyException("Declared type of variable"+id+
+                throw new TypeMismatchException("Declared type of variable"+id+
                         " and type of the assigned expression do not match");
             }
         }else{

@@ -1,7 +1,9 @@
 package Model.Exp;
 
-import Model.MyException;
+import Model.Exception.MyException;
 import Model.ADT.Dictionary.MyIDictionary;
+import Model.Exception.TypeException;
+import Model.Exception.UnknownOperatorException;
 import Model.Type.BoolType;
 import Model.Value.BoolValue;
 import Model.Value.Value;
@@ -30,11 +32,11 @@ public class LogicExp implements Exp {
                 n2 = b2.getValue();
                 if(op.equals("and")) return new BoolValue(n1 && n2);
                 if(op.equals("or")) return new BoolValue(n1 || n2);
-                throw new MyException("Unknown operator");
+                throw new UnknownOperatorException("Unknown operator");
             }else
-                throw new MyException("second operand is not a boolean");
+                throw new TypeException("second operand is not a boolean");
         }else {
-            throw new MyException("first operand is not a boolean");
+            throw new TypeException("first operand is not a boolean");
         }
     }
     @Override
