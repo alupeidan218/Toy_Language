@@ -1,6 +1,5 @@
 package Model.Stmt;
 
-import Model.MyException;
 import Model.PrgState;
 
 public class NopStmt implements IStmt {

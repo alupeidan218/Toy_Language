@@ -1,6 +1,6 @@
 package Model.Stmt;
 
-import Model.MyException;
+import Model.Exception.MyException;
 import Model.PrgState;
 
 public interface IStmt {

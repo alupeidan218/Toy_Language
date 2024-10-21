@@ -2,7 +2,7 @@ package Model.Stmt;
 
 import Model.ADT.Dictionary.MyIDictionary;
 import Model.ADT.List.MyIList;
-import Model.MyException;
+import Model.Exception.MyException;
 import Model.PrgState;
 import Model.Exp.*;
 import Model.Value.*;

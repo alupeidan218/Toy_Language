@@ -1,7 +1,8 @@
 package Model.Stmt;
 
 import Model.ADT.Dictionary.MyIDictionary;
-import Model.MyException;
+import Model.Exception.AlreadyDeclaredException;
+import Model.Exception.MyException;
 import Model.PrgState;
 import Model.Type.*;
 import Model.Value.*;
@@ -20,7 +21,7 @@ public class VarDeclStmt implements IStmt {
         {
             symTable.put(name, type.defaultValue());
         } else {
-            throw new MyException("Variable " + name + " is already declared");
+            throw new AlreadyDeclaredException("Variable " + name + " is already declared");
         }
         return state;
     }

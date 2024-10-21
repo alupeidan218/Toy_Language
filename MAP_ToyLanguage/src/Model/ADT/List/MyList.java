@@ -1,6 +1,7 @@
 package Model.ADT.List;
 
-import Model.MyException;
+import Model.Exception.MyException;
+import Model.Exception.OutOfBoundsException;
 
 import java.util.ArrayList;
 
@@ -18,7 +19,7 @@ public class MyList<T> implements MyIList<T> {
     @Override
     public T get(int index) throws MyException {
         if(index < 0 || index >= list.size())
-            throw new MyException("Index out of bounds");
+            throw new OutOfBoundsException("Index out of bounds");
         return list.get(index);
     }
 

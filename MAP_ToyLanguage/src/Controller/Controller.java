@@ -1,16 +1,25 @@
 package Controller;
 import Model.ADT.Stack.MyIStack;
+import Model.Exception.MyException;
+import Model.Exception.StackEmptyException;
 import Model.Stmt.IStmt;
 import Repository.*;
 import Model.*;
 public class Controller {
     final IRepo repo;
+    private boolean displayFlag = false;
     public Controller(IRepo repo) {
         this.repo = repo;
     }
+    public void switchDisplayFlag() {
+        this.displayFlag = !this.displayFlag;
+    }
     public PrgState oneStep(PrgState state) throws MyException {
+        if(displayFlag) {
+            System.out.println(state);
+        }
         MyIStack<IStmt> stk = state.getStack();
-        if(stk.isEmpty()) throw new MyException("PrgState stack is empty :(");
+        if(stk.isEmpty()) throw new StackEmptyException("PrgState stack is empty :(");
         IStmt crtStmt = stk.pop();
         return crtStmt.execute(state);
     }
@@ -19,10 +28,12 @@ public class Controller {
     }
     public void allStep() throws MyException {
         PrgState prg = repo.getCrtPrg();
-        System.out.println(prg);
         while(!prg.getStack().isEmpty()) {
-            PrgState step = oneStep(prg);
-            System.out.println(step);
+            prg = oneStep(prg);
+        }
+        if(displayFlag)
+        {
+            System.out.println(prg);
         }
         prg.restart();
     }
