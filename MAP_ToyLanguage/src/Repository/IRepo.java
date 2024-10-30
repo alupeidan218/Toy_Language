@@ -1,4 +1,5 @@
 package Repository;
+import Model.Exception.MyException;
 import Model.PrgState;
 public interface IRepo {
     void add(PrgState element);
@@ -6,5 +7,6 @@ public interface IRepo {
     int size();
     boolean isEmpty();
     PrgState getCrtPrg();
+    void logPrgStateExec() throws MyException;
     void setCrt(int index);
 }
