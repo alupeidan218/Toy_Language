@@ -4,7 +4,6 @@ import Model.Exception.MyException;
 import Model.ADT.Dictionary.MyIDictionary;
 import Model.Exception.TypeException;
 import Model.Exception.UnknownOperatorException;
-import Model.SymTable.ISymTable;
 import Model.Type.BoolType;
 import Model.Value.BoolValue;
 import Model.Value.Value;
@@ -19,7 +18,7 @@ public class LogicExp implements Exp {
         this.op = op;
     }
     @Override
-    public Value eval(ISymTable tbl) throws MyException
+    public Value eval(MyIDictionary<String,Value> tbl) throws MyException
     {
         Value v1,v2;
         v1= e1.eval(tbl);
