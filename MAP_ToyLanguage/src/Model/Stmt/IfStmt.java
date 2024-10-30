@@ -3,9 +3,11 @@ package Model.Stmt;
 import Model.ADT.Dictionary.MyIDictionary;
 import Model.ADT.Stack.MyIStack;
 import Model.Exception.TypeException;
+import Model.ExeStack.IExeStack;
 import Model.Exp.Exp;
 import Model.Exception.MyException;
 import Model.PrgState;
+import Model.SymTable.ISymTable;
 import Model.Type.BoolType;
 import Model.Value.*;
 
@@ -20,8 +22,8 @@ public class IfStmt implements IStmt {
     }
     @Override
     public PrgState execute(PrgState state) throws MyException {
-        MyIStack<IStmt> stk = state.getStack();
-        MyIDictionary<String, Value> symTable = state.getSymTable();
+        IExeStack stk = state.getStack();
+        ISymTable symTable = state.getSymTable();
         Value cond = exp.eval(symTable);
         if(cond.getType() instanceof BoolType) {
             if(((BoolValue) cond).getValue())
