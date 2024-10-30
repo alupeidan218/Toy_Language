@@ -3,10 +3,8 @@ package Model.Stmt;
 import Model.ADT.Dictionary.MyIDictionary;
 import Model.ADT.List.MyIList;
 import Model.Exception.MyException;
-import Model.Output.IOutput;
 import Model.PrgState;
 import Model.Exp.*;
-import Model.SymTable.ISymTable;
 import Model.Value.*;
 
 public class PrintStmt implements IStmt {
@@ -16,8 +14,8 @@ public class PrintStmt implements IStmt {
     }
     @Override
     public PrgState execute(PrgState state) throws MyException {
-        IOutput out = state.getOut();
-        ISymTable symTable = state.getSymTable();
+        MyIList<String> out = state.getOut();
+        MyIDictionary<String, Value> symTable = state.getSymTable();
         Value v = exp.eval(symTable);
         out.add(v.toString());
         return state;

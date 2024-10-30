@@ -10,7 +10,4 @@ public class BoolValue implements Value {
     public String toString() {return Boolean.toString(val);}
     public Type getType() {return new BoolType();}
     public Value copy() {return new BoolValue(val);}
-    public boolean equals(Object other) {
-        return other instanceof BoolValue && ((BoolValue)other).getValue() == getValue();
-    }
 }

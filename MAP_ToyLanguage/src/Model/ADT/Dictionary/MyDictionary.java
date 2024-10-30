@@ -3,9 +3,7 @@ package Model.ADT.Dictionary;
 import Model.Exception.KeyNotFoundException;
 import Model.Exception.MyException;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class MyDictionary<U, V> implements MyIDictionary<U, V> {
     private final HashMap<U, V> map;
@@ -30,17 +28,12 @@ public class MyDictionary<U, V> implements MyIDictionary<U, V> {
     public boolean isDefined(U key) {
         return map.containsKey(key);
     }
-
-    @Override
-    public List<U> getKeys() {
-        return new ArrayList<>(map.keySet());
-    }
     @Override
     public String toString(){
         StringBuilder s = new StringBuilder();
         for(U key : map.keySet()){
             V value = map.get(key);
-            s.append(key.toString()).append("-> ").append(value).append("\n");
+            s.append(key.toString()).append(": ").append(value).append("\n");
         }
         return s.toString();
     }

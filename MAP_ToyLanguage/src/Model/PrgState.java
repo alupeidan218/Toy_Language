@@ -5,66 +5,52 @@ import Model.ADT.List.MyIList;
 import Model.ADT.Stack.MyIStack;
 import Model.Stmt.IStmt;
 import Model.Value.Value;
-import Model.FileTable.*;
-import Model.FileTable.*;
-import Model.ExeStack.*;
-import Model.Output.*;
-import Model.SymTable.*;
 
 public class PrgState {
-    private IExeStack exeStack;
-    private ISymTable symTable;
-    private IOutput out;
-    private IFileTable fileTable;
+    private MyIStack<IStmt> exeStack;
+    private MyIDictionary<String, Value> symTable;
+    private MyIList<String> out;
     private final IStmt originalPrg;
-    public PrgState(IExeStack stk, ISymTable symTable, IOutput out, IFileTable tbl, IStmt prg) {
+    public PrgState(MyIStack<IStmt> stk, MyIDictionary<String, Value> symTable, MyIList<String> out, IStmt prg) {
         exeStack = stk;
         this.symTable = symTable;
         this.out = out;
-        this.fileTable = tbl;
         originalPrg = prg.copy();
         stk.push(prg);
     }
-    public IExeStack getStack(){
+    public MyIStack<IStmt> getStack(){
         return exeStack;
     }
-    public void setStack(IExeStack exeStack){
+    public void setStack(MyIStack<IStmt> exeStack){
         this.exeStack = exeStack;
     }
-    public ISymTable getSymTable(){
+    public MyIDictionary<String, Value> getSymTable(){
         return symTable;
     }
-    public void setSymTable(ISymTable symTable){
+    public void setSymTable(MyIDictionary<String, Value> symTable){
         this.symTable = symTable;
     }
-    public IOutput getOut(){
+    public MyIList<String> getOut(){
         return out;
     }
-    public void setOut(IOutput out){
+    public void setOut(MyIList<String> out){
         this.out = out;
-    }
-    public IFileTable getFileTable(){
-        return fileTable;
-    }
-    public void setFileTable(IFileTable fileTable){
-        this.fileTable = fileTable;
     }
     public void restart(){
         this.exeStack.clear();
         this.symTable.clear();
         this.out.clear();
-        this.fileTable.clear();
         this.exeStack.push(originalPrg.copy());
     }
     public String toString()
     {
-        return exeStack.toString() +
+        return "Execution stack: \n" + exeStack.toString() +
                 "\n" +
+                "SymTable: \n" +
                 symTable.toString() +
                 "\n" +
+                "Out: \n" +
                 out.toString() +
-                "\n" +
-                fileTable.toString() +
                 "\n";
     }
 }
