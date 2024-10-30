@@ -9,7 +9,7 @@ public class NopStmt implements IStmt {
     }
     @Override
     public String toString() {
-        return "NOP statement";
+        return ";";
     }
     @Override
     public IStmt copy(){

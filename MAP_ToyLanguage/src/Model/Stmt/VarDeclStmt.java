@@ -4,6 +4,7 @@ import Model.ADT.Dictionary.MyIDictionary;
 import Model.Exception.AlreadyDeclaredException;
 import Model.Exception.MyException;
 import Model.PrgState;
+import Model.SymTable.ISymTable;
 import Model.Type.*;
 import Model.Value.*;
 
@@ -16,10 +17,11 @@ public class VarDeclStmt implements IStmt {
     }
     @Override
     public PrgState execute(PrgState state) throws MyException {
-        MyIDictionary<String, Value> symTable = state.getSymTable();
-        if(!symTable.isDefined(name))
+        ISymTable symTable = state.getSymTable();
+        Value vl = symTable.getValue(name);
+        if(vl == null)
         {
-            symTable.put(name, type.defaultValue());
+            symTable.declareValue(name, type);
         } else {
             throw new AlreadyDeclaredException("Variable " + name + " is already declared");
         }
