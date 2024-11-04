@@ -1,6 +1,7 @@
 package Model.Exp;
 
 import Model.ADT.Dictionary.MyIDictionary;
+import Model.SymTable.ISymTable;
 import Model.Value.Value;
 
 public class ValueExp implements Exp {
@@ -9,7 +10,7 @@ public class ValueExp implements Exp {
         this.e = e;
     }
     @Override
-    public Value eval(MyIDictionary<String,Value> tbl) {return e;}
+    public Value eval(ISymTable tbl) {return e;}
 
     @Override
     public String toString() {
