@@ -2,6 +2,7 @@ package Model.Exp;
 
 import Model.Exception.MyException;
 import Model.ADT.Dictionary.MyIDictionary;
+import Model.SymTable.ISymTable;
 import Model.Type.IntType;
 import Model.Value.IntValue;
 import Model.Value.Value;
@@ -23,7 +24,7 @@ public class ArithExp implements Exp {
     */
 
     @Override
-    public Value eval(MyIDictionary<String,Value> tbl) throws MyException {
+    public Value eval(ISymTable tbl) throws MyException {
         Value v1,v2;
         v1= e1.eval(tbl);
         if (v1.getType().equals(new IntType())) {
@@ -34,12 +35,20 @@ public class ArithExp implements Exp {
                 int n1,n2;
                 n1= i1.getValue();
                 n2 = i2.getValue();
-                if(op.equals("+")) return new IntValue(n1+n2);
-                if(op.equals("-")) return new IntValue(n1-n2);
-                if(op.equals("*")) return new IntValue(n1*n2);
-                if(op.equals("/")) {
-                    if (n2 == 0) throw new MyException("division by zero");
-                    else return new IntValue(n1 / n2);
+                switch (op) {
+                    case "+" -> {
+                        return new IntValue(n1 + n2);
+                    }
+                    case "-" -> {
+                        return new IntValue(n1 - n2);
+                    }
+                    case "*" -> {
+                        return new IntValue(n1 * n2);
+                    }
+                    case "/" -> {
+                        if (n2 == 0) throw new MyException("division by zero");
+                        else return new IntValue(n1 / n2);
+                    }
                 }
                 throw new MyException("Unknown operator");
             }else

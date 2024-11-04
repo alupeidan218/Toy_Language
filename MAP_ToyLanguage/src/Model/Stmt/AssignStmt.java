@@ -5,6 +5,7 @@ import Model.Exception.MyException;
 import Model.Exception.TypeMismatchException;
 import Model.PrgState;
 import Model.Exp.*;
+import Model.SymTable.ISymTable;
 import Model.Value.*;
 import Model.Type.*;
 
@@ -18,13 +19,14 @@ public class AssignStmt implements IStmt {
     }
     @Override
     public PrgState execute(PrgState state) throws MyException {
-        MyIDictionary<String, Value> symTbl = state.getSymTable();
-        if(symTbl.isDefined(id)){
+        ISymTable symTbl = state.getSymTable();
+        Value vl = symTbl.getValue(id);
+        if(vl != null){
             Value val = exp.eval(symTbl);
-            Type typeId = (symTbl.lookup(id)).getType();
+            Type typeId = (val).getType();
             if(val.getType().equals(typeId))
             {
-                symTbl.put(id, val);
+                symTbl.setValue(id, val);
             }else{
                 throw new TypeMismatchException("Declared type of variable"+id+
                         " and type of the assigned expression do not match");

@@ -1,6 +1,7 @@
 package Model.Stmt;
 
 import Model.ADT.Stack.MyIStack;
+import Model.ExeStack.IExeStack;
 import Model.PrgState;
 
 public class CompStmt implements IStmt {
@@ -12,7 +13,7 @@ public class CompStmt implements IStmt {
     }
     @Override
     public PrgState execute(PrgState state) {
-        MyIStack<IStmt> stk = state.getStack();
+        IExeStack stk = state.getStack();
         stk.push(second);
         stk.push(first);
         return state;
