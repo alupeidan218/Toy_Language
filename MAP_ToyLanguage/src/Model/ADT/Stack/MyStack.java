@@ -20,6 +20,11 @@ public class MyStack<T> implements MyIStack<T> {
             throw new StackEmptyException("Stack is empty");
         return stack.pop();
     }
+    public T top() throws MyException {
+        if(stack.isEmpty())
+            throw new StackEmptyException("Stack is empty");
+        return stack.peek();
+    }
     @Override
     public boolean isEmpty()
     {
