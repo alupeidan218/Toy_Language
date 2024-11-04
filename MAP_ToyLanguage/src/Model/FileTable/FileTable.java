@@ -36,6 +36,7 @@ public class FileTable implements IFileTable {
         if(br != null) {
             try {
                 br.close();
+                table.remove(name);
             } catch(IOException e) {
                 throw new FileException(e.getMessage());
             }

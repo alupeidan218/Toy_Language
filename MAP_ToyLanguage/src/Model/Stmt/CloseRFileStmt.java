@@ -31,7 +31,7 @@ public class CloseRFileStmt implements IStmt {
         } catch(IOException e){
             throw new FileException(e.getMessage());
         }
-        state.getSymTable().removeValue(str_val);
+        state.getFileTable().closeFile(str_val);
         return state;
     }
     public String toString(){

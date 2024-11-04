@@ -34,7 +34,7 @@ public class ReadFileStmt implements IStmt {
         if(!str.getType().equals(new StringType())) {
             throw new TypeMismatchException("File name must be of type string!");
         }
-        BufferedReader br = state.getFileTable().lookup(var_name);
+        BufferedReader br = state.getFileTable().lookup(((StringValue)str).getValue());
         if(br == null) {
             throw new FileException("File " + ((StringValue) str).getValue() + " not found!");
         }

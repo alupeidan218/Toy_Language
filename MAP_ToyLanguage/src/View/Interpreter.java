@@ -17,7 +17,8 @@ import Model.Exception.MyException;
 
 import java.util.Scanner;
 
-public class Interpreter {
+public class
+Interpreter {
     public static void main(String[] args) {
         // int v; v=2; Print(v)
         IStmt ex1 = new CompStmt(new VarDeclStmt("v", new IntType()),
@@ -79,12 +80,50 @@ public class Interpreter {
         IRepo repo4 = new MemoryRepo("log4.txt");
         repo4.add(prg4);
         Controller ctr4 = new Controller(repo4);
+        // string varf;
+        // varf = "test.in";
+        // openRFile(varf);
+        // int varc;
+        // readFile(varf, varc); print(varc);
+        // readFile(varf, varc); print(varc);
+        // closeRFile(varf);
+        IStmt ex5 = new CompStmt(new VarDeclStmt("varf", new StringType()),
+                new CompStmt(new AssignStmt("varf", new ValueExp(new StringValue("C:\\Users\\alupe\\Documents\\GitHub\\MAP_Laboratory\\MAP_ToyLanguage\\test.in"))),
+                        new CompStmt(new OpenRStmt(new VarExp("varf")),
+                                new CompStmt(new VarDeclStmt("varc", new IntType()),
+                                        new CompStmt(new ReadFileStmt(new VarExp("varf"), "varc"),
+                                                new CompStmt(new PrintStmt(new VarExp("varc")),
+                                                        new CompStmt(new ReadFileStmt(new VarExp("varf"), "varc"),
+                                                                new CompStmt(new PrintStmt(new VarExp("varc")),
+                                                                        new CloseRFileStmt(new VarExp("varf"))))))))));
+        PrgState prg5 = new PrgState(new ExeStack(), new SymTable(),
+                new Output(), new FileTable(), ex5);
+        IRepo repo5 = new MemoryRepo("log5.txt");
+        repo5.add(prg5);
+        Controller ctr5 = new Controller(repo5);
+        // int a = 3; int b = 5;
+        // bool var_cond = a < b;
+        // print(var_cond)
+        IStmt ex6 = new CompStmt(new VarDeclStmt("a", new IntType()),
+                        new CompStmt(new AssignStmt("a", new ValueExp(new IntValue(3))),
+                                new CompStmt(new VarDeclStmt("b", new IntType()),
+                                        new CompStmt(new AssignStmt("b", new ValueExp(new IntValue(5))),
+                                                new CompStmt(new VarDeclStmt("var_cond", new BoolType()),
+                                                        new CompStmt(new AssignStmt("var_cond", new RelationExp(new VarExp("a"), new VarExp("b"), "<")),
+                                                                new PrintStmt(new VarExp("var_cond"))))))));
+        PrgState prg6 = new PrgState(new ExeStack(), new SymTable(),
+                new Output(), new FileTable(), ex6);
+        IRepo repo6 = new MemoryRepo("log6.txt");
+        repo6.add(prg6);
+        Controller ctr6 = new Controller(repo6);
         TextMenu menu = new TextMenu();
         menu.addCommand(new ExitCommand("0", "exit"));
         menu.addCommand(new RunExampleCommand("1", ex1.toString(), ctr1));
         menu.addCommand(new RunExampleCommand("2", ex2.toString(), ctr2));
         menu.addCommand(new RunExampleCommand("3", ex3.toString(), ctr3));
         menu.addCommand(new RunExampleCommand("4", ex4.toString(), ctr4));
+        menu.addCommand(new RunExampleCommand("5", ex5.toString(), ctr5));
+        menu.addCommand(new RunExampleCommand("6", ex6.toString(), ctr6));
         menu.show();
     }
 }
