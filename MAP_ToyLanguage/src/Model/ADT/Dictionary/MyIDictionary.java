@@ -4,6 +4,7 @@ import Model.Exception.KeyNotFoundException;
 import Model.Exception.MyException;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MyIDictionary<U, V> {
     V lookup(U key);
@@ -13,4 +14,5 @@ public interface MyIDictionary<U, V> {
     String toString();
     List<U> getKeys();
     void clear();
+    Map<U, V> toMap();
 }

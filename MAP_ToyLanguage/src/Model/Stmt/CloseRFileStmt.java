@@ -9,6 +9,7 @@ import Model.PrgState;
 import Model.Type.StringType;
 import Model.Value.StringValue;
 import Model.Value.Value;
+import Model.Heap.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class CloseRFileStmt implements IStmt {
         this.exp = exp;
     }
     public PrgState execute(PrgState state) {
-        Value str = exp.eval(state.getSymTable());
+        Value str = exp.eval(state.getSymTable(), state.getHeap());
         if(!str.getType().equals(new StringType()))
             throw new TypeMismatchException("File name must be string!");
         String str_val = ((StringValue)str).getValue();

@@ -7,6 +7,7 @@ import Model.Type.IntType;
 import Model.Value.BoolValue;
 import Model.Value.IntValue;
 import Model.Value.Value;
+import Model.Heap.*;
 
 public class RelationExp implements Exp {
     Exp exp1, exp2;
@@ -16,9 +17,9 @@ public class RelationExp implements Exp {
         this.exp2 = exp2;
         this.op = op;
     }
-    public Value eval(ISymTable tbl){
-        Value v1 = exp1.eval(tbl);
-        Value v2 = exp2.eval(tbl);
+    public Value eval(ISymTable tbl, IHeap heap){
+        Value v1 = exp1.eval(tbl, heap);
+        Value v2 = exp2.eval(tbl, heap);
         if(!v1.getType().equals(new IntType()) || !v2.getType().equals(new IntType())){
             throw new TypeMismatchException("Expressions must be integers");
         }

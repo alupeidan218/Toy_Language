@@ -8,6 +8,7 @@ import Model.Exp.*;
 import Model.SymTable.ISymTable;
 import Model.Value.*;
 import Model.Type.*;
+import Model.Heap.*;
 
 public class AssignStmt implements IStmt {
     private final String id;
@@ -20,9 +21,10 @@ public class AssignStmt implements IStmt {
     @Override
     public PrgState execute(PrgState state) throws MyException {
         ISymTable symTbl = state.getSymTable();
+        IHeap heap = state.getHeap();
         Value vl = symTbl.getValue(id);
         if(vl != null){
-            Value val = exp.eval(symTbl);
+            Value val = exp.eval(symTbl, heap);
             Type typeId = (val).getType();
             if(val.getType().equals(typeId))
             {

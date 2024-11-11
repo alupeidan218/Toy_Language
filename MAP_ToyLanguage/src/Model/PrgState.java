@@ -10,18 +10,21 @@ import Model.FileTable.*;
 import Model.ExeStack.*;
 import Model.Output.*;
 import Model.SymTable.*;
+import Model.Heap.*;
 
 public class PrgState {
     private IExeStack exeStack;
     private ISymTable symTable;
     private IOutput out;
     private IFileTable fileTable;
+    private IHeap heap;
     private final IStmt originalPrg;
-    public PrgState(IExeStack stk, ISymTable symTable, IOutput out, IFileTable tbl, IStmt prg) {
+    public PrgState(IExeStack stk, ISymTable symTable, IOutput out, IFileTable tbl, IHeap heap, IStmt prg) {
         exeStack = stk;
         this.symTable = symTable;
         this.out = out;
         this.fileTable = tbl;
+        this.heap = heap;
         originalPrg = prg.copy();
         stk.push(prg);
     }
@@ -49,6 +52,12 @@ public class PrgState {
     public void setFileTable(IFileTable fileTable){
         this.fileTable = fileTable;
     }
+    public IHeap getHeap(){
+        return heap;
+    }
+    public void setHeap(IHeap heap){
+        this.heap = heap;
+    }
     public void restart(){
         this.exeStack.clear();
         this.symTable.clear();
@@ -61,6 +70,8 @@ public class PrgState {
         return exeStack.toString() +
                 "\n" +
                 symTable.toString() +
+                "\n" +
+                heap.toString() +
                 "\n" +
                 out.toString() +
                 "\n" +

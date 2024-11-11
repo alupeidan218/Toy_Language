@@ -10,6 +10,7 @@ import Model.PrgState;
 import Model.SymTable.ISymTable;
 import Model.Type.BoolType;
 import Model.Value.*;
+import Model.Heap.*;
 
 public class IfStmt implements IStmt {
     private final Exp exp;
@@ -24,7 +25,8 @@ public class IfStmt implements IStmt {
     public PrgState execute(PrgState state) throws MyException {
         IExeStack stk = state.getStack();
         ISymTable symTable = state.getSymTable();
-        Value cond = exp.eval(symTable);
+        IHeap heap = state.getHeap();
+        Value cond = exp.eval(symTable, heap);
         if(cond.getType() instanceof BoolType) {
             if(((BoolValue) cond).getValue())
                 stk.push(thenS);

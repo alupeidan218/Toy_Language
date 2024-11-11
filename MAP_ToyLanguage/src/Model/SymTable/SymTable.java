@@ -5,6 +5,8 @@ import Model.ADT.Dictionary.*;
 import Model.Type.Type;
 import Model.Value.Value;
 
+import java.util.Map;
+
 public class SymTable implements ISymTable {
     MyIDictionary<String, Value> tbl;
     public SymTable() {
@@ -27,5 +29,8 @@ public class SymTable implements ISymTable {
     }
     public void clear() {
         tbl.clear();
+    }
+    public Map<String, Value> getContent(){
+        return tbl.toMap();
     }
 }

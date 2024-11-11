@@ -16,7 +16,7 @@ public class OpenRStmt implements IStmt {
         this.exp = exp;
     }
     public PrgState execute(PrgState state) throws MyException {
-        Value v = exp.eval(state.getSymTable());
+        Value v = exp.eval(state.getSymTable(), state.getHeap());
         if(v.getType().equals(new StringType()))
         {
             IFileTable tbl = state.getFileTable();
