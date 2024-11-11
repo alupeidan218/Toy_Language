@@ -8,6 +8,7 @@ import Model.SymTable.ISymTable;
 import Model.Type.BoolType;
 import Model.Value.BoolValue;
 import Model.Value.Value;
+import Model.Heap.*;
 
 public class LogicExp implements Exp {
     private final Exp e1;
@@ -19,12 +20,12 @@ public class LogicExp implements Exp {
         this.op = op;
     }
     @Override
-    public Value eval(ISymTable tbl) throws MyException
+    public Value eval(ISymTable tbl, IHeap heap) throws MyException
     {
         Value v1,v2;
-        v1= e1.eval(tbl);
+        v1= e1.eval(tbl, heap);
         if (v1.getType().equals(new BoolType())) {
-            v2 = e2.eval(tbl);
+            v2 = e2.eval(tbl, heap);
             if (v2.getType().equals(new BoolType())) {
                 BoolValue b1 = (BoolValue)v1;
                 BoolValue b2 = (BoolValue)v2;

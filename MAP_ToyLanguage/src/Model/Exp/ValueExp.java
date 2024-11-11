@@ -3,6 +3,7 @@ package Model.Exp;
 import Model.ADT.Dictionary.MyIDictionary;
 import Model.SymTable.ISymTable;
 import Model.Value.Value;
+import Model.Heap.*;
 
 public class ValueExp implements Exp {
     private final Value e;
@@ -10,7 +11,7 @@ public class ValueExp implements Exp {
         this.e = e;
     }
     @Override
-    public Value eval(ISymTable tbl) {return e;}
+    public Value eval(ISymTable tbl, IHeap heap) {return e;}
 
     @Override
     public String toString() {

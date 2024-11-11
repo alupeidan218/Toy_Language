@@ -3,6 +3,7 @@ package Model.Exp;
 import Model.ADT.Dictionary.MyIDictionary;
 import Model.SymTable.ISymTable;
 import Model.Value.Value;
+import Model.Heap.*;
 
 public class VarExp implements Exp {
     private final String id;
@@ -10,7 +11,7 @@ public class VarExp implements Exp {
         this.id = id;
     }
     @Override
-    public Value eval(ISymTable tbl) {
+    public Value eval(ISymTable tbl, IHeap heap) {
         return tbl.getValue(id);
     }
     @Override

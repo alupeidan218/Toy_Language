@@ -10,6 +10,7 @@ import Model.Type.StringType;
 import Model.Value.IntValue;
 import Model.Value.StringValue;
 import Model.Value.Value;
+import Model.Heap.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class ReadFileStmt implements IStmt {
     }
     public PrgState execute(PrgState state) throws MyException {
         ISymTable sym = state.getSymTable();
+        IHeap heap = state.getHeap();
         Value vl = sym.getValue(var_name);
         if(vl == null) {
             throw new KeyNotFoundException(var_name + " is not defined!");
@@ -30,7 +32,7 @@ public class ReadFileStmt implements IStmt {
         if(!vl.getType().equals(new IntType())) {
             throw new TypeMismatchException("Type of variable " + var_name + " is not an integer!");
         }
-        Value str = exp.eval(sym);
+        Value str = exp.eval(sym, heap);
         if(!str.getType().equals(new StringType())) {
             throw new TypeMismatchException("File name must be of type string!");
         }

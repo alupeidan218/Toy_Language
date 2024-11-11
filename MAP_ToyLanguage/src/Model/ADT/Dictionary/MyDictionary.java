@@ -6,6 +6,7 @@ import Model.Exception.MyException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MyDictionary<U, V> implements MyIDictionary<U, V> {
     private final HashMap<U, V> map;
@@ -47,5 +48,9 @@ public class MyDictionary<U, V> implements MyIDictionary<U, V> {
     @Override
     public void clear(){
         map.clear();
+    }
+    @Override
+    public Map<U, V> toMap() {
+        return map;
     }
 }
