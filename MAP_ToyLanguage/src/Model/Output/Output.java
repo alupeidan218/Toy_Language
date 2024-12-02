@@ -1,10 +1,8 @@
 package Model.Output;
 import Model.ADT.List.*;
-import Model.Exception.MyException;
-import Model.Stmt.IStmt;
 
 public class Output implements IOutput {
-    MyIList<String> list;
+    final MyIList<String> list;
     public Output() {
         this.list = new MyList<>();
     }

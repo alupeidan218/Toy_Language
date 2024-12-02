@@ -1,6 +1,5 @@
 package Model.Stmt;
 
-import Model.ADT.Dictionary.MyIDictionary;
 import Model.Exception.AlreadyDeclaredException;
 import Model.Exception.MyException;
 import Model.PrgState;
@@ -25,7 +24,7 @@ public class VarDeclStmt implements IStmt {
         } else {
             throw new AlreadyDeclaredException("Variable " + name + " is already declared");
         }
-        return state;
+        return null;
     }
     @Override
     public String toString() {

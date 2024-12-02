@@ -9,7 +9,7 @@ import Model.Value.Value;
 import java.util.Map;
 
 public class Heap implements IHeap {
-    MyIDictionary<Integer, Value> heap;
+    final MyIDictionary<Integer, Value> heap;
     Integer nextFree;
 
     public Heap() {
@@ -54,9 +54,17 @@ public class Heap implements IHeap {
         return heap.toMap();
     }
 
-    public void setContent(Map<Integer, Value> content) {
+    public Integer getNextFree() {
+        return nextFree;
+    }
+
+    public void setContent(Map<Integer, Value> content, Integer nextFree) {
         heap.clear();
         for (Map.Entry<Integer, Value> entry : content.entrySet())
             heap.put(entry.getKey(), entry.getValue());
+        this.nextFree = nextFree;
+    }
+    public void clear(){
+        heap.clear();
     }
 }

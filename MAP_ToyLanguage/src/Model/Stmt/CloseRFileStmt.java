@@ -1,15 +1,12 @@
 package Model.Stmt;
 
-import Model.ADT.Dictionary.MyIDictionary;
 import Model.Exception.FileException;
-import Model.Exception.TypeException;
 import Model.Exception.TypeMismatchException;
 import Model.Exp.Exp;
 import Model.PrgState;
 import Model.Type.StringType;
 import Model.Value.StringValue;
 import Model.Value.Value;
-import Model.Heap.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,7 +30,7 @@ public class CloseRFileStmt implements IStmt {
             throw new FileException(e.getMessage());
         }
         state.getFileTable().closeFile(str_val);
-        return state;
+        return null;
     }
     public String toString(){
         return "Closing file " + exp.toString();

@@ -1,7 +1,5 @@
 package Model.Stmt;
 
-import Model.ADT.Dictionary.MyIDictionary;
-import Model.ADT.Stack.MyIStack;
 import Model.Exception.TypeException;
 import Model.ExeStack.IExeStack;
 import Model.Exp.Exp;
@@ -35,7 +33,7 @@ public class IfStmt implements IStmt {
         } else {
             throw new TypeException("Conditional expression is not a boolean");
         }
-        return state;
+        return null;
     }
     @Override
     public String toString() {return "(IF("+exp.toString()+") THEN("+thenS.toString()+

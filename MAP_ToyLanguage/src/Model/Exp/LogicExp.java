@@ -1,7 +1,6 @@
 package Model.Exp;
 
 import Model.Exception.MyException;
-import Model.ADT.Dictionary.MyIDictionary;
 import Model.Exception.TypeException;
 import Model.Exception.UnknownOperatorException;
 import Model.SymTable.ISymTable;

@@ -3,7 +3,7 @@ package Model.Type;
 import Model.Value.*;
 
 public class RefType implements Type {
-    Type inner;
+    final Type inner;
 
     public RefType(Type inner) {
         this.inner = inner;

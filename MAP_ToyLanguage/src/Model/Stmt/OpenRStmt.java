@@ -29,7 +29,7 @@ public class OpenRStmt implements IStmt {
         } else {
             throw new TypeMismatchException("File name is not a string!");
         }
-        return state;
+        return null;
     }
     public String toString(){
         return "Opening file " + exp.toString();

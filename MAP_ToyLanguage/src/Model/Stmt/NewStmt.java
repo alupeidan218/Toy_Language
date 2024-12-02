@@ -4,11 +4,8 @@ import Model.Exception.KeyNotFoundException;
 import Model.Exception.MyException;
 import Model.Exception.TypeMismatchException;
 import Model.Exp.Exp;
-import Model.Heap.IHeap;
 import Model.PrgState;
 import Model.SymTable.ISymTable;
-import Model.SymTable.SymTable;
-import Model.Type.IntType;
 import Model.Type.RefType;
 import Model.Type.Type;
 import Model.Value.RefValue;
@@ -39,7 +36,7 @@ public class NewStmt implements IStmt {
         }
         int addr = heap.allocate(exp_val);
         tbl.setValue(var_name, new RefValue(addr, locationType));
-        return state;
+        return null;
     }
     public String toString() {
         return "Ref " + var_name + "=" + expression.toString();

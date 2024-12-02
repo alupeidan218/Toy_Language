@@ -1,7 +1,5 @@
 package Model.Stmt;
 
-import Model.ADT.Dictionary.MyIDictionary;
-import Model.ADT.List.MyIList;
 import Model.Exception.MyException;
 import Model.Output.IOutput;
 import Model.PrgState;
@@ -20,7 +18,7 @@ public class PrintStmt implements IStmt {
         ISymTable symTable = state.getSymTable();
         Value v = exp.eval(symTable, state.getHeap());
         out.add(v.toString());
-        return state;
+        return null;
     }
     @Override
     public String toString(){return "print(" + exp.toString() + ")";}

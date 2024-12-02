@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 import Model.Exception.MyException;
 import Model.PrgState;
-import java.util.Scanner;
+
+import java.util.List;
 
 public class MemoryRepo implements IRepo {
     private final ArrayList<PrgState> elems;
@@ -32,23 +33,27 @@ public class MemoryRepo implements IRepo {
         return elems.size();
     }
     @Override
-    public PrgState getCrtPrg()
-    {
-        return elems.get(current);
-    }
-    @Override
     public void setCrt(int index){
         current = index;
     }
     @Override
-    public void logPrgStateExec() throws MyException {
+    public void logPrgStateExec(PrgState state) throws MyException {
         try {
             PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)));
-            logFile.println(elems.get(current).toString());
+            logFile.println(state.toString());
             logFile.close();
         } catch(IOException e)
         {
             throw new MyException(e.getMessage());
         }
+    }
+    @Override
+    public void setPrgList(List<PrgState> list) {
+        elems.clear();
+        elems.addAll(list);
+    }
+    @Override
+    public List<PrgState> getPrgList() {
+        return elems;
     }
 }

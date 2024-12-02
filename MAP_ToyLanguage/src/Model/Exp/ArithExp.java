@@ -1,7 +1,6 @@
 package Model.Exp;
 
 import Model.Exception.MyException;
-import Model.ADT.Dictionary.MyIDictionary;
 import Model.Heap.IHeap;
 import Model.SymTable.ISymTable;
 import Model.Type.IntType;

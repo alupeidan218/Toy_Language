@@ -7,11 +7,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class MyDictionary<U, V> implements MyIDictionary<U, V> {
-    private final HashMap<U, V> map;
+    private final ConcurrentHashMap<U, V> map;
     public MyDictionary() {
-        map = new HashMap<>();
+        map = new ConcurrentHashMap<>();
     }
     @Override
     public V lookup(U key) {
@@ -22,10 +23,10 @@ public class MyDictionary<U, V> implements MyIDictionary<U, V> {
         map.put(key, value);
     }
     @Override
-    public V remove(U key) throws MyException {
+    public void remove(U key) throws MyException {
         if(!map.containsKey(key))
             throw new KeyNotFoundException("Key not found");
-        return map.remove(key);
+        map.remove(key);
     }
     @Override
     public boolean isDefined(U key) {
