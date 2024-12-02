@@ -35,12 +35,12 @@ public class WriteHeapStmt implements IStmt {
             throw new KeyNotFoundException("Address " + addr + " is invalid");
         }
         Value val = expr.eval(tbl, heap);
-        if(!val.getType().equals(((RefType)((RefValue)var).getType()).getInner()))
+        if(!val.getType().equals(((RefType) var.getType()).getInner()))
         {
             throw new TypeMismatchException("Type mismatch");
         }
         heap.write(addr, val);
-        return state;
+        return null;
     }
     public String toString() {
         return "Ref " + var_name + " -> " + expr.toString();

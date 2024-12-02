@@ -2,7 +2,6 @@ package Model.ADT.Stack;
 import Model.Exception.MyException;
 import Model.Exception.StackEmptyException;
 
-import java.util.EmptyStackException;
 import java.util.Stack;
 
 public class MyStack<T> implements MyIStack<T> {

@@ -1,6 +1,5 @@
 package Model.Stmt;
 
-import Model.ADT.Dictionary.MyIDictionary;
 import Model.Exception.*;
 import Model.Exp.Exp;
 import Model.PrgState;
@@ -51,7 +50,7 @@ public class ReadFileStmt implements IStmt {
         } catch(IOException e) {
             throw new FileException(e.getMessage());
         }
-        return state;
+        return null;
     }
 
     public String toString() {

@@ -1,6 +1,5 @@
 package Model.SymTable;
 import Model.Exception.MyException;
-import Model.Stmt.IStmt;
 import Model.ADT.Dictionary.*;
 import Model.Type.Type;
 import Model.Value.Value;
@@ -8,7 +7,7 @@ import Model.Value.Value;
 import java.util.Map;
 
 public class SymTable implements ISymTable {
-    MyIDictionary<String, Value> tbl;
+    final MyIDictionary<String, Value> tbl;
     public SymTable() {
         this.tbl = new MyDictionary<>();
     }
@@ -32,5 +31,12 @@ public class SymTable implements ISymTable {
     }
     public Map<String, Value> getContent(){
         return tbl.toMap();
+    }
+    public ISymTable copy() {
+        SymTable copy = new SymTable();
+        for (Map.Entry<String, Value> entry : tbl.toMap().entrySet()) {
+            copy.setValue(entry.getKey(), entry.getValue().copy());
+        }
+        return copy;
     }
 }

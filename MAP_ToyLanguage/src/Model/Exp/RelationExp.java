@@ -10,8 +10,9 @@ import Model.Value.Value;
 import Model.Heap.*;
 
 public class RelationExp implements Exp {
-    Exp exp1, exp2;
-    String op;
+    final Exp exp1;
+    final Exp exp2;
+    final String op;
     public RelationExp(Exp exp1, Exp exp2, String op) {
         this.exp1 = exp1;
         this.exp2 = exp2;

@@ -1,14 +1,14 @@
 package View;
 
 public abstract class Command {
-    private final String key;
+    private final Integer key;
     private final String description;
-    public Command(String key, String description) {
+    public Command(Integer key, String description) {
         this.key = key;
         this.description = description;
     }
     public abstract void execute();
-    public String getKey() {
+    public Integer getKey() {
         return key;
     }
     public String getDescription() {

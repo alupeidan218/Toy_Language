@@ -4,7 +4,7 @@ import Model.Exception.MyException;
 
 public class RunExampleCommand extends Command {
     private final Controller ctr;
-    public RunExampleCommand(String key, String desc, Controller ctr) {
+    public RunExampleCommand(Integer key, String desc, Controller ctr) {
         super(key, desc);
         this.ctr = ctr;
     }

@@ -1,6 +1,5 @@
 package Model.Stmt;
 
-import Model.ADT.Stack.MyIStack;
 import Model.ExeStack.IExeStack;
 import Model.PrgState;
 
@@ -16,7 +15,7 @@ public class CompStmt implements IStmt {
         IExeStack stk = state.getStack();
         stk.push(second);
         stk.push(first);
-        return state;
+        return null;
     }
     @Override
     public String toString(){

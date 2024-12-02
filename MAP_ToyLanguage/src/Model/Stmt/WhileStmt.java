@@ -10,8 +10,8 @@ import Model.Value.BoolValue;
 import Model.Value.Value;
 
 public class WhileStmt implements IStmt {
-    IStmt stmt;
-    Exp expr;
+    final IStmt stmt;
+    final Exp expr;
     public WhileStmt(IStmt stmt, Exp expr) {
         this.stmt = stmt;
         this.expr = expr;
@@ -28,7 +28,7 @@ public class WhileStmt implements IStmt {
                stk.push(this);
                stk.push(stmt);
         }
-        return state;
+        return null;
     }
     public String toString()
     {

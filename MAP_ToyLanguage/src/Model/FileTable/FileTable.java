@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class FileTable implements IFileTable {
-    MyIDictionary<String, BufferedReader> table;
+    final MyIDictionary<String, BufferedReader> table;
     public FileTable() {
         this.table = new MyDictionary<>();
     }

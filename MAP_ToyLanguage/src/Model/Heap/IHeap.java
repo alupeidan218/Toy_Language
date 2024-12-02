@@ -11,5 +11,7 @@ public interface IHeap {
     Value read(int addr) throws InvalidAddressException;
     String toString();
     Map<Integer, Value> getContent();
-    void setContent(Map<Integer, Value> content);
+    Integer getNextFree();
+    void setContent(Map<Integer, Value> content, Integer nextFree);
+    void clear();
 }

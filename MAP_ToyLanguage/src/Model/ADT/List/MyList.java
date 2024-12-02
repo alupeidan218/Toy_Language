@@ -4,11 +4,15 @@ import Model.Exception.MyException;
 import Model.Exception.OutOfBoundsException;
 
 import java.util.ArrayList;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
+@SuppressWarnings("unchecked")
 public class MyList<T> implements MyIList<T> {
-    private final ArrayList<T> list;
+    private final BlockingQueue<T> list; // Use a concurrent implementation
     public MyList() {
-        list = new ArrayList<>();
+        list = new LinkedBlockingQueue<>();
     }
     @Override
     public void add(T item)
@@ -20,7 +24,8 @@ public class MyList<T> implements MyIList<T> {
     public T get(int index) throws MyException {
         if(index < 0 || index >= list.size())
             throw new OutOfBoundsException("Index out of bounds");
-        return list.get(index);
+        Object[] array = list.toArray();
+        return (T)array[index];
     }
 
     @Override

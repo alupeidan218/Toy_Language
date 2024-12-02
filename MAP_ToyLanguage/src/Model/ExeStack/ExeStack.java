@@ -4,7 +4,7 @@ import Model.Exception.MyException;
 import Model.Stmt.IStmt;
 
 public class ExeStack implements IExeStack {
-    MyIStack<IStmt> stack;
+    final MyIStack<IStmt> stack;
     public ExeStack() {
         this.stack = new MyStack<>();
     }

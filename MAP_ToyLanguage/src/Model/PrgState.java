@@ -1,16 +1,15 @@
 package Model;
 
-import Model.ADT.Dictionary.MyIDictionary;
-import Model.ADT.List.MyIList;
-import Model.ADT.Stack.MyIStack;
+import Model.Exception.MyException;
+import Model.Exception.StackEmptyException;
 import Model.Stmt.IStmt;
-import Model.Value.Value;
-import Model.FileTable.*;
 import Model.FileTable.*;
 import Model.ExeStack.*;
 import Model.Output.*;
 import Model.SymTable.*;
 import Model.Heap.*;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class PrgState {
     private IExeStack exeStack;
@@ -19,8 +18,11 @@ public class PrgState {
     private IFileTable fileTable;
     private IHeap heap;
     private final IStmt originalPrg;
+    private static final AtomicInteger idInc = new AtomicInteger(0);
+    private final Integer id;
     public PrgState(IExeStack stk, ISymTable symTable, IOutput out, IFileTable tbl, IHeap heap, IStmt prg) {
-        exeStack = stk;
+        this.id = nextId();
+        this.exeStack = stk;
         this.symTable = symTable;
         this.out = out;
         this.fileTable = tbl;
@@ -28,8 +30,19 @@ public class PrgState {
         originalPrg = prg.copy();
         stk.push(prg);
     }
+    public static int nextId() {
+        return idInc.getAndIncrement();
+    }
+    public PrgState oneStep() throws MyException {
+        if (exeStack.isEmpty()) throw new StackEmptyException("PrgState stack is empty :(");
+        IStmt crtStmt = exeStack.pop();
+        return crtStmt.execute(this);
+    }
     public IExeStack getStack(){
         return exeStack;
+    }
+    public boolean isNotCompleted(){
+        return !exeStack.isEmpty();
     }
     public void setStack(IExeStack exeStack){
         this.exeStack = exeStack;
@@ -58,16 +71,12 @@ public class PrgState {
     public void setHeap(IHeap heap){
         this.heap = heap;
     }
-    public void restart(){
-        this.exeStack.clear();
-        this.symTable.clear();
-        this.out.clear();
-        this.fileTable.clear();
-        this.exeStack.push(originalPrg.copy());
-    }
+
     public String toString()
     {
-        return exeStack.toString() +
+        return "PROGRAM ID: " + id +
+                "\n" +
+                exeStack.toString() +
                 "\n" +
                 symTable.toString() +
                 "\n" +

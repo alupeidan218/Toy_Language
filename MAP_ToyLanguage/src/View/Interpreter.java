@@ -10,13 +10,7 @@ import Model.Exp.*;
 import Model.SymTable.SymTable;
 import Model.Type.*;
 import Model.Value.*;
-import Model.ADT.Stack.*;
-import Model.ADT.List.*;
-import Model.ADT.Dictionary.*;
 import Repository.*;
-import Model.Exception.MyException;
-
-import java.util.Scanner;
 
 public class
 Interpreter {
@@ -188,19 +182,36 @@ Interpreter {
         IRepo repo11 = new MemoryRepo("log11.txt");
         repo11.add(prg11);
         Controller ctr11 = new Controller(repo11);
+
+        IStmt ex12 = new CompStmt(new VarDeclStmt("v", new IntType()),
+                new CompStmt(new VarDeclStmt("a", new RefType(new IntType())),
+                        new CompStmt(new AssignStmt("v", new ValueExp(new IntValue(10))),
+                                new CompStmt(new NewStmt("a", new ValueExp(new IntValue(22))),
+                                        new CompStmt(new ForkStmt(new CompStmt(new WriteHeapStmt("a", new ValueExp(new IntValue(30))),
+                                                new CompStmt(new AssignStmt("v", new ValueExp(new IntValue(32))),
+                                                        new CompStmt(new PrintStmt(new VarExp("v")),
+                                                                new PrintStmt(new ReadHeapExp(new VarExp("a"))))))),
+                                                new CompStmt(new PrintStmt(new VarExp("v")),
+                                                        new PrintStmt(new ReadHeapExp(new VarExp("a")))))))));
+        PrgState prg12 = new PrgState(new ExeStack(), new SymTable(),
+                new Output(), new FileTable(), new Heap(), ex12);
+        IRepo repo12 = new MemoryRepo("log12.txt");
+        repo12.add(prg12);
+        Controller ctr12 = new Controller(repo12);
         TextMenu menu = new TextMenu();
-        menu.addCommand(new ExitCommand("0", "exit"));
-        menu.addCommand(new RunExampleCommand("1", ex1.toString(), ctr1));
-        menu.addCommand(new RunExampleCommand("2", ex2.toString(), ctr2));
-        menu.addCommand(new RunExampleCommand("3", ex3.toString(), ctr3));
-        menu.addCommand(new RunExampleCommand("4", ex4.toString(), ctr4));
-        menu.addCommand(new RunExampleCommand("5", ex5.toString(), ctr5));
-        menu.addCommand(new RunExampleCommand("6", ex6.toString(), ctr6));
-        menu.addCommand(new RunExampleCommand("7", ex7.toString(), ctr7));
-        menu.addCommand(new RunExampleCommand("8", ex8.toString(), ctr8));
-        menu.addCommand(new RunExampleCommand("9", ex9.toString(), ctr9));
-        menu.addCommand(new RunExampleCommand("10", ex10.toString(), ctr10));
-        menu.addCommand(new RunExampleCommand("11", ex11.toString(), ctr11));
+        menu.addCommand(new ExitCommand(0, "exit"));
+        menu.addCommand(new RunExampleCommand(1, ex1.toString(), ctr1));
+        menu.addCommand(new RunExampleCommand(2, ex2.toString(), ctr2));
+        menu.addCommand(new RunExampleCommand(3, ex3.toString(), ctr3));
+        menu.addCommand(new RunExampleCommand(4, ex4.toString(), ctr4));
+        menu.addCommand(new RunExampleCommand(5, ex5.toString(), ctr5));
+        menu.addCommand(new RunExampleCommand(6, ex6.toString(), ctr6));
+        menu.addCommand(new RunExampleCommand(7, ex7.toString(), ctr7));
+        menu.addCommand(new RunExampleCommand(8, ex8.toString(), ctr8));
+        menu.addCommand(new RunExampleCommand(9, ex9.toString(), ctr9));
+        menu.addCommand(new RunExampleCommand(10, ex10.toString(), ctr10));
+        menu.addCommand(new RunExampleCommand(11, ex11.toString(), ctr11));
+        menu.addCommand(new RunExampleCommand(12, ex12.toString(), ctr12));
         menu.show();
     }
 }
