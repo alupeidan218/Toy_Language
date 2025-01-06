@@ -1,9 +1,11 @@
 package Model.Exp;
 
+import Model.ADT.Dictionary.MyIDictionary;
 import Model.Exception.MyException;
 import Model.Heap.IHeap;
 import Model.SymTable.ISymTable;
 import Model.Type.IntType;
+import Model.Type.Type;
 import Model.Value.IntValue;
 import Model.Value.Value;
 
@@ -54,6 +56,22 @@ public class ArithExp implements Exp {
             }else
                 throw new MyException("second operand is not an integer");
         }else {
+            throw new MyException("first operand is not an integer");
+        }
+    }
+    @Override
+    public Type typecheck(MyIDictionary<String, Type> typeEnv) throws MyException
+    {
+        Type typ1, typ2;
+        typ1 = e1.typecheck(typeEnv);
+        typ2 = e2.typecheck(typeEnv);
+        if(typ1.equals(new IntType())){
+            if(typ2.equals(new IntType())){
+                return new IntType();
+            } else {
+                throw new MyException("second operand is not an integer");
+            }
+        } else {
             throw new MyException("first operand is not an integer");
         }
     }

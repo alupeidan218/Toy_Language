@@ -1,6 +1,9 @@
 package Model.Exp;
 
+import Model.ADT.Dictionary.MyIDictionary;
+import Model.Exception.MyException;
 import Model.SymTable.ISymTable;
+import Model.Type.Type;
 import Model.Value.Value;
 import Model.Heap.*;
 
@@ -11,7 +14,11 @@ public class ValueExp implements Exp {
     }
     @Override
     public Value eval(ISymTable tbl, IHeap heap) {return e;}
-
+    @Override
+    public Type typecheck(MyIDictionary<String, Type> typeEnv) throws MyException
+    {
+        return e.getType();
+    }
     @Override
     public String toString() {
         return e.toString();

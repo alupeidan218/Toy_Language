@@ -1,5 +1,6 @@
 package Model.Stmt;
 
+import Model.ADT.Dictionary.MyIDictionary;
 import Model.Exception.AlreadyDeclaredException;
 import Model.Exception.MyException;
 import Model.Exception.TypeMismatchException;
@@ -7,6 +8,7 @@ import Model.FileTable.IFileTable;
 import Model.PrgState;
 import Model.Exp.*;
 import Model.Type.StringType;
+import Model.Type.Type;
 import Model.Value.StringValue;
 import Model.Value.Value;
 
@@ -30,6 +32,15 @@ public class OpenRStmt implements IStmt {
             throw new TypeMismatchException("File name is not a string!");
         }
         return null;
+    }
+    public MyIDictionary<String, Type> typecheck(MyIDictionary<String,Type> typeEnv) throws
+            MyException
+    {
+        Type typexp = exp.typecheck(typeEnv);
+        if(typexp.equals(new StringType()))
+            return typeEnv;
+        else
+            throw new TypeMismatchException("File name must be of string type!");
     }
     public String toString(){
         return "Opening file " + exp.toString();

@@ -1,6 +1,8 @@
 package Controller;
+import Model.ADT.Dictionary.MyDictionary;
 import Model.Exception.InvalidAddressException;
 import Model.Exception.MyException;
+import Model.Exception.TypeCheckException;
 import Model.Heap.IHeap;
 import Model.Value.RefValue;
 import Model.Value.Value;
@@ -20,6 +22,11 @@ public class Controller {
     }
     public void switchDisplayFlag() {
         this.displayFlag = !this.displayFlag;
+    }
+
+    public void typechecker() {
+        PrgState program = repo.getPrgList().getFirst();
+        program.getStack().top().typecheck(new MyDictionary<>());
     }
     public List<PrgState> removeCompletedPrg(List<PrgState> inPrgList){
         return inPrgList.stream()
@@ -80,7 +87,7 @@ public class Controller {
             List<PrgState> newPrgList = executor.invokeAll(callList).stream()
                     .map(future -> { try {return future.get();}
                     catch(InterruptedException | ExecutionException e) {
-                        throw new RuntimeException(e);
+                        throw new RuntimeException(e.getCause());
                     }
                     }).filter(Objects::nonNull)
                     .toList();
@@ -98,6 +105,11 @@ public class Controller {
     }
 
     public void allStep() throws MyException {
+        try {
+            typechecker();
+        } catch (MyException e) {
+            throw new TypeCheckException(e.getMessage());
+        }
         executor = Executors.newFixedThreadPool(2);
         List<PrgState> prgList = removeCompletedPrg(repo.getPrgList());
         while(!prgList.isEmpty()){

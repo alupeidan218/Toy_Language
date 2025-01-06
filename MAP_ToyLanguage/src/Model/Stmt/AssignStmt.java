@@ -1,5 +1,6 @@
 package Model.Stmt;
 
+import Model.ADT.Dictionary.MyIDictionary;
 import Model.Exception.MyException;
 import Model.Exception.TypeMismatchException;
 import Model.PrgState;
@@ -36,6 +37,17 @@ public class AssignStmt implements IStmt {
             throw new MyException(id+" is not defined");
         }
         return null;
+    }
+    @Override
+    public MyIDictionary<String, Type> typecheck(MyIDictionary<String,Type> typeEnv) throws
+            MyException
+    {
+        Type typevar = typeEnv.lookup(id);
+        Type typexp = exp.typecheck(typeEnv);
+        if(typevar.equals(typexp))
+            return typeEnv;
+        else
+            throw new TypeMismatchException("Assignment: right hand side and left hand side have different types");
     }
     @Override
     public String toString() {return id+"="+exp.toString();}

@@ -1,7 +1,10 @@
 package Model.Stmt;
 
+import Model.ADT.Dictionary.MyIDictionary;
+import Model.Exception.MyException;
 import Model.ExeStack.IExeStack;
 import Model.PrgState;
+import Model.Type.Type;
 
 public class CompStmt implements IStmt {
     private final IStmt first;
@@ -16,6 +19,12 @@ public class CompStmt implements IStmt {
         stk.push(second);
         stk.push(first);
         return null;
+    }
+    @Override
+    public MyIDictionary<String, Type> typecheck(MyIDictionary<String,Type> typeEnv) throws
+            MyException
+    {
+        return second.typecheck(first.typecheck(typeEnv));
     }
     @Override
     public String toString(){

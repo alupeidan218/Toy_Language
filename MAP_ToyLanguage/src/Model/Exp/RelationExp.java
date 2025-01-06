@@ -1,9 +1,13 @@
 package Model.Exp;
 
+import Model.ADT.Dictionary.MyIDictionary;
+import Model.Exception.MyException;
 import Model.Exception.TypeMismatchException;
 import Model.Exception.UnknownOperatorException;
 import Model.SymTable.ISymTable;
+import Model.Type.BoolType;
 import Model.Type.IntType;
+import Model.Type.Type;
 import Model.Value.BoolValue;
 import Model.Value.IntValue;
 import Model.Value.Value;
@@ -36,6 +40,21 @@ public class RelationExp implements Exp {
             case ">=" -> new BoolValue(n1 >= n2);
             default -> throw new UnknownOperatorException("Unknown relational operator");
         };
+    }
+    public Type typecheck(MyIDictionary<String, Type> typeEnv) throws MyException
+    {
+        Type typ1, typ2;
+        typ1 = exp1.typecheck(typeEnv);
+        typ2 = exp2.typecheck(typeEnv);
+        if(typ1.equals(new IntType())){
+            if(typ2.equals(new IntType())){
+                return new BoolType();
+            } else {
+                throw new MyException("second operand is not an integer");
+            }
+        } else {
+            throw new MyException("first operand is not an integer");
+        }
     }
     public String toString(){
         return exp1.toString() + " " + op + " " + exp2.toString();

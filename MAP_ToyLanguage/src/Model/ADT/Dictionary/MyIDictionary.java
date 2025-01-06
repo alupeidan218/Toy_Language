@@ -12,4 +12,5 @@ public interface MyIDictionary<U, V> {
     List<U> getKeys();
     void clear();
     Map<U, V> toMap();
+    MyIDictionary<U, V> copy();
 }

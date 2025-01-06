@@ -20,15 +20,15 @@ public class PrgState {
     private final IStmt originalPrg;
     private static final AtomicInteger idInc = new AtomicInteger(0);
     private final Integer id;
-    public PrgState(IExeStack stk, ISymTable symTable, IOutput out, IFileTable tbl, IHeap heap, IStmt prg) {
+    public PrgState(IStmt prg) {
         this.id = nextId();
-        this.exeStack = stk;
-        this.symTable = symTable;
-        this.out = out;
-        this.fileTable = tbl;
-        this.heap = heap;
+        this.exeStack = new ExeStack();
+        this.symTable = new SymTable();
+        this.out = new Output();
+        this.fileTable = new FileTable();
+        this.heap = new Heap();
         originalPrg = prg.copy();
-        stk.push(prg);
+        exeStack.push(prg);
     }
     public static int nextId() {
         return idInc.getAndIncrement();

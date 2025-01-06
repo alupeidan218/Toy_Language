@@ -1,5 +1,6 @@
 package Model.Stmt;
 
+import Model.ADT.Dictionary.MyIDictionary;
 import Model.Exception.AlreadyDeclaredException;
 import Model.Exception.MyException;
 import Model.PrgState;
@@ -25,6 +26,13 @@ public class VarDeclStmt implements IStmt {
             throw new AlreadyDeclaredException("Variable " + name + " is already declared");
         }
         return null;
+    }
+    @Override
+    public MyIDictionary<String, Type> typecheck(MyIDictionary<String,Type> typeEnv) throws
+            MyException
+    {
+        typeEnv.put(name, type);
+        return typeEnv;
     }
     @Override
     public String toString() {
