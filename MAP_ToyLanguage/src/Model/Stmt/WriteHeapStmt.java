@@ -1,11 +1,14 @@
 package Model.Stmt;
 
+import Model.ADT.Dictionary.MyIDictionary;
 import Model.Exception.KeyNotFoundException;
+import Model.Exception.MyException;
 import Model.Exception.TypeMismatchException;
 import Model.Exp.Exp;
 import Model.PrgState;
 import Model.SymTable.ISymTable;
 import Model.Type.RefType;
+import Model.Type.Type;
 import Model.Value.RefValue;
 import Model.Value.Value;
 import Model.Heap.*;
@@ -41,6 +44,21 @@ public class WriteHeapStmt implements IStmt {
         }
         heap.write(addr, val);
         return null;
+    }
+    public MyIDictionary<String, Type> typecheck(MyIDictionary<String,Type> typeEnv) throws
+            MyException
+    {
+        Type typevar = typeEnv.lookup(var_name);
+        Type typexp = expr.typecheck(typeEnv);
+        if(typevar instanceof RefType){
+            if(((RefType) typevar).getInner().equals(typexp)){
+                return typeEnv;
+            } else {
+                throw new TypeMismatchException("Expression and address location types must match!");
+            }
+        } else {
+            throw new TypeMismatchException("wH: Variable is not of Ref type");
+        }
     }
     public String toString() {
         return "Ref " + var_name + " -> " + expr.toString();

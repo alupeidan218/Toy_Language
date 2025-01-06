@@ -1,5 +1,6 @@
 package Model.Stmt;
 
+import Model.ADT.Dictionary.MyIDictionary;
 import Model.Exception.TypeException;
 import Model.ExeStack.IExeStack;
 import Model.Exp.Exp;
@@ -7,6 +8,7 @@ import Model.Exception.MyException;
 import Model.PrgState;
 import Model.SymTable.ISymTable;
 import Model.Type.BoolType;
+import Model.Type.Type;
 import Model.Value.*;
 import Model.Heap.*;
 
@@ -34,6 +36,20 @@ public class IfStmt implements IStmt {
             throw new TypeException("Conditional expression is not a boolean");
         }
         return null;
+    }
+    @Override
+    public MyIDictionary<String, Type> typecheck(MyIDictionary<String,Type> typeEnv) throws
+            MyException
+    {
+        Type typexp = exp.typecheck(typeEnv);
+        if(typexp.equals(new BoolType()))
+        {
+            thenS.typecheck(typeEnv.copy());
+            elseS.typecheck(typeEnv.copy());
+            return typeEnv;
+        } else {
+            throw new MyException("The condition of IF does not have the type bool");
+        }
     }
     @Override
     public String toString() {return "(IF("+exp.toString()+") THEN("+thenS.toString()+

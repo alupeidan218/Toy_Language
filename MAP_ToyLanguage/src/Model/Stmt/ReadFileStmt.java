@@ -1,11 +1,13 @@
 package Model.Stmt;
 
+import Model.ADT.Dictionary.MyIDictionary;
 import Model.Exception.*;
 import Model.Exp.Exp;
 import Model.PrgState;
 import Model.SymTable.ISymTable;
 import Model.Type.IntType;
 import Model.Type.StringType;
+import Model.Type.Type;
 import Model.Value.IntValue;
 import Model.Value.StringValue;
 import Model.Value.Value;
@@ -52,7 +54,23 @@ public class ReadFileStmt implements IStmt {
         }
         return null;
     }
-
+    @Override
+    public MyIDictionary<String, Type> typecheck(MyIDictionary<String,Type> typeEnv) throws
+            MyException
+    {
+        Type typexp = exp.typecheck(typeEnv);
+        if(typexp.equals(new StringType())) {
+            Type typevar = typeEnv.lookup(var_name);
+            if(typevar.equals(new IntType())) {
+                return typeEnv;
+            } else {
+                throw new TypeMismatchException("Type variable " + var_name + " is not an integer!");
+            }
+        } else {
+            throw new TypeMismatchException("File name must be a string type!");
+        }
+    }
+    @Override
     public String toString() {
         return "Reading file " + exp.toString() + " into variable " + var_name;
     }

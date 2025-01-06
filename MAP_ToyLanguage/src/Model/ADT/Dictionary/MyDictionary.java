@@ -2,6 +2,7 @@ package Model.ADT.Dictionary;
 
 import Model.Exception.KeyNotFoundException;
 import Model.Exception.MyException;
+import Model.Value.Value;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,5 +54,13 @@ public class MyDictionary<U, V> implements MyIDictionary<U, V> {
     @Override
     public Map<U, V> toMap() {
         return map;
+    }
+    @Override
+    public MyIDictionary<U, V> copy() {
+        MyIDictionary<U, V> copy = new MyDictionary<>();
+        for(U key : map.keySet()){
+            copy.put(key, map.get(key));
+        }
+        return copy;
     }
 }

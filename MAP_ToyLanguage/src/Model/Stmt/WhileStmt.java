@@ -1,11 +1,15 @@
 package Model.Stmt;
 
+import Model.ADT.Dictionary.MyIDictionary;
+import Model.Exception.MyException;
 import Model.Exception.TypeMismatchException;
 import Model.ExeStack.IExeStack;
 import Model.Exp.Exp;
 import Model.Heap.IHeap;
 import Model.PrgState;
 import Model.SymTable.ISymTable;
+import Model.Type.BoolType;
+import Model.Type.Type;
 import Model.Value.BoolValue;
 import Model.Value.Value;
 
@@ -29,6 +33,18 @@ public class WhileStmt implements IStmt {
                stk.push(stmt);
         }
         return null;
+    }
+    public MyIDictionary<String, Type> typecheck(MyIDictionary<String,Type> typeEnv) throws
+            MyException
+    {
+        Type typexp = expr.typecheck(typeEnv);
+        if(typexp.equals(new BoolType()))
+        {
+            stmt.typecheck(typeEnv.copy());
+            return typeEnv;
+        } else {
+            throw new MyException("The condition of WHILE does not have the type bool");
+        }
     }
     public String toString()
     {

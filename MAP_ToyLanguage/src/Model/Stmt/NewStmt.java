@@ -1,5 +1,6 @@
 package Model.Stmt;
 
+import Model.ADT.Dictionary.MyIDictionary;
 import Model.Exception.KeyNotFoundException;
 import Model.Exception.MyException;
 import Model.Exception.TypeMismatchException;
@@ -37,6 +38,18 @@ public class NewStmt implements IStmt {
         int addr = heap.allocate(exp_val);
         tbl.setValue(var_name, new RefValue(addr, locationType));
         return null;
+    }
+    public MyIDictionary<String, Type> typecheck(MyIDictionary<String,Type> typeEnv) throws
+            MyException
+    {
+        Type typevar = typeEnv.lookup(var_name);
+        Type typexp = expression.typecheck(typeEnv);
+        if(typevar.equals(new RefType(typexp)))
+        {
+            return typeEnv;
+        } else {
+            throw new TypeMismatchException("NEW stmt: right hand side and left hand side have different types");
+        }
     }
     public String toString() {
         return "Ref " + var_name + "=" + expression.toString();

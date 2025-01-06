@@ -1,10 +1,13 @@
 package Model.Exp;
 
+import Model.ADT.Dictionary.MyIDictionary;
 import Model.Exception.MyException;
 import Model.Exception.TypeException;
+import Model.Exception.TypeMismatchException;
 import Model.Exception.UnknownOperatorException;
 import Model.SymTable.ISymTable;
 import Model.Type.BoolType;
+import Model.Type.Type;
 import Model.Value.BoolValue;
 import Model.Value.Value;
 import Model.Heap.*;
@@ -38,6 +41,24 @@ public class LogicExp implements Exp {
                 throw new TypeException("second operand is not a boolean");
         }else {
             throw new TypeException("first operand is not a boolean");
+        }
+    }
+    @Override
+    public Type typecheck(MyIDictionary<String, Type> typeEnv) throws MyException
+    {
+        Type typ1, typ2;
+        typ1 = e1.typecheck(typeEnv);
+        typ2 = e2.typecheck(typeEnv);
+        if(typ1.equals(new BoolType()))
+        {
+            if(typ2.equals(new BoolType()))
+            {
+                return new BoolType();
+            } else {
+                throw new TypeMismatchException("Second operand is not a boolean");
+            }
+        } else {
+            throw new TypeMismatchException("First operand is not a boolean");
         }
     }
     @Override
